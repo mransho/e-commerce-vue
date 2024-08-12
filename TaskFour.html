@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div>
+      State :
+      <p>
+        If I have an input field and the value storage to data and I have a span
+        to display what I type in the field then the State is the Auto update to
+        the span to display this data
+      </p>
+    </div>
+    <!-- ------------------------------------------------------------------------------------------------ -->
+    <hr />
+
+    <div id="app">
+      <p>Count: {{ count }}</p>
+      <button @click="incrementCount">Increment</button>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            count: 0,
+          };
+        },
+        methods: {
+          incrementCount() {
+            this.count++;
+          },
+        },
+      }).mount("#app");
+    </script>
+    <!-- ------------------------------------------------------------------------------------------------ -->
+    <hr />
+    <div>
+      props : It is a way to pass data from a parent component to a child
+      component.
+    </div>
+    <hr />
+
+    <div id="appX">
+      <ParentComponent></ParentComponent>
+    </div>
+
+    <script>
+      const { defineComponent } = Vue;
+
+      const ChildComponent = defineComponent({
+        props: {
+          text: {
+            type: String,
+            required: true,
+          },
+        },
+        template: `<p>Message from parent: {{ text }}</p>`,
+      });
+
+      const ParentComponent = defineComponent({
+        components: {
+          ChildComponent,
+        },
+        data() {
+          return {
+            message: "Hello from Parent!",
+          };
+        },
+        template: `
+            <div>
+              <h1 style="font-size: 16px">Parent ComponentX</h1>
+              <ChildComponent :text="message"></ChildComponent>
+            </div>
+          `,
+      });
+
+      createApp(ParentComponent).mount("#appX");
+    </script>
+
+    <script src="TaskThree.js"></script>
+  </body>
+</html>
